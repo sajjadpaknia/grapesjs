@@ -1,1 +1,1 @@
-export * from "./grapesJS/grapesJSConfig";
+export * from "./grapesJsConfig";
