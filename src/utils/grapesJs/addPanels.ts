@@ -1,16 +1,6 @@
 import { Editor } from "grapesjs";
+import { panels } from "../../data";
 
 export const addPanels = ({ editor }: { editor: Editor }) => {
-  editor.Panels.addPanel({
-    id: "panel-top",
-    el: "#top-panel",
-    buttons: [
-      {
-        id: "delete",
-        label: "Trash",
-        command: "delete-selected",
-        attributes: { title: "Delete selected component" },
-      },
-    ],
-  });
+  panels.forEach((panel) => editor.Panels.addPanel(panel));
 };
