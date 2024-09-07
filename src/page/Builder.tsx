@@ -6,12 +6,11 @@ const Builder = () => {
   useEffect(() => {
     if (grapesJSContainer.current) {
       grapesJSConfig({ container: grapesJSContainer.current });
-      
     }
   }, []);
   return (
     <div className="w-full h-full">
-      <div
+      {/* <div
         id="top-panel"
         className="flex justify-between w-full p-0"
         style={{ position: "initial" }}
@@ -27,23 +26,18 @@ const Builder = () => {
           className="flex"
           style={{ position: "initial" }}
         ></div>
-      </div>
+      </div> */}
       <div className="flex justify-start items-stretch" id="editor-row">
         <div className="grow" id="editor-canvas">
           <div ref={grapesJSContainer}></div>
         </div>
-        <div
-          id="right-panel"
-          className="relative overflow-y-auto"
-          style={{ flexBasis: "250px" }}
-        >
-          <div id="layers-container"></div>
+        <div id="right-panel" className="relative overflow-y-auto">
+          {/* <div id="layers-container"></div>
           <div id="styles-container"></div>
-          <div id="traits-container"></div>
+          <div id="traits-container"></div> */}
         </div>
       </div>
     </div>
-
   );
 };
 
