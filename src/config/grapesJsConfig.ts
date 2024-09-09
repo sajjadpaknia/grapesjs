@@ -1,4 +1,4 @@
-import grapesjs, { Editor } from "grapesjs";
+import grapesjs, { Editor, Sectors, StyleManagerConfig } from "grapesjs";
 import { addCommands, addPanels } from "../utils";
 import blocksBasic from "grapesjs-blocks-basic";
 import gjsForms from "grapesjs-plugin-forms";
@@ -80,6 +80,7 @@ export const grapesJSConfig = ({ container }: IProps) => {
     // panels: {
     //   defaults: [],
     // },
+
     storageManager: {
       type: "local", // Type of the storage, available: 'local' | 'remote'
       autosave: true, // Store data automatically
@@ -102,4 +103,86 @@ export const grapesJSConfig = ({ container }: IProps) => {
 
   // addPanels({ editor: editor });
   // addCommands({ editor: editor });
+
+  editor.StyleManager.addSector(
+    "animation",
+    {
+      name: "Animation",
+      open: false,
+      properties: [
+        {
+          id: "animation-type",
+          name: "Type",
+          type: "select",
+          full: true,
+          options: [
+            {
+              id: "none",
+              label: "none",
+            },
+            {
+              id: "loop",
+              label: "loop",
+            },
+            {
+              id: "ease",
+              label: "ease",
+            },
+            {
+              id: "linear",
+              label: "linear",
+            },
+
+            {
+              id: "opacity",
+              label: "opacity",
+            },
+          ],
+          onChange(data) {
+            if (!data.value) return;
+            console.log(data.value);
+
+            const selectedComponent = editor.getSelected();
+            if (!selectedComponent) return;
+            // selectedComponent.setStyle({
+            //   color: "red", // Example: Set text color to red
+            //   "font-size": "20px", // Example: Set font size to 20px
+            //   "background-color": "blue", // Example: Set background color to blue
+            //   animation: "fadein 3s infinite",
+            // });
+            const el = selectedComponent.getEl();
+            if (!el) return;
+
+            // Add custom animation using JS
+            el.style.transition = "opacity .5s ease-in-out";
+
+            const interval = setInterval(() => {
+              el.style.opacity = "0"; // Start fading out
+              setTimeout(() => {
+                el.style.opacity = "1"; // Fade back in
+              }, 2000); // Wait for the fade-out to complete before starting fade-in
+            }, 4000); // 2 seconds fade-out + 2 seconds fade-in = 4 seconds total cycle
+            if (data.value === "none") {
+              clearInterval(interval);
+            }
+          },
+        },
+      ],
+    },
+    { at: 0 }
+  );
+  // editor.on("component:selected", (model) => {
+  //   // model.setAttributes({ style: "animation: fadein 2s linear infinite;" })
+  //   const selectedComponent = editor.getSelected();
+
+  //   if (selectedComponent) {
+  //     selectedComponent.setStyle({
+  //       color: "red", // Example: Set text color to red
+  //       "font-size": "20px", // Example: Set font size to 20px
+  //       "background-color": "blue", // Example: Set background color to blue
+  //     });
+  //   }
+  // });
+  const foo = editor.StyleManager.getProperty("animation", "animation-type");
+  console.log(foo);
 };

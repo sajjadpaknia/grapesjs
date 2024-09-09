@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { grapesJSConfig } from "../config";
-import "../style/Builder.css";
 const Builder = () => {
   const grapesJSContainer = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
